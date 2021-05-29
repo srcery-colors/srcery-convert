@@ -36,7 +36,7 @@ pub struct Palette {
 #[derive(Debug, Deserialize)]
 pub struct Color {
     pub hex: String,
-    pub rgb: Vec<u32>,
+    pub rgb: Vec<u8>,
     pub hsl: Vec<u32>
 }
 
