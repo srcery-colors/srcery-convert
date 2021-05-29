@@ -10,8 +10,6 @@ fn main() {
         Ok(palette) => palette,
         Err(e) => panic!("Failed to read palette file\n {}", e),
     };
-
-    // println!("{:?}", palette.get("black").unwrap());
     convert(&palette);
 }
 
@@ -20,8 +18,17 @@ fn convert(palette: &HashMap<String, Color>) {
         .expect("Failed to read input image")
         .to_rgb8();
 
-    for (x, y, px) in img.enumerate_pixels() {
-        let d = &palette.get("green").unwrap().distance(&px);
-        println!("{}", d);
+    for (x, y, px) in img.clone().enumerate_pixels() {
+        let mut nearest = palette.get("black").unwrap();
+        for (_, color) in palette.iter() {
+            if color.distance(px) < nearest.distance(px) {
+                nearest = color;
+            }
+        }
+        let replacement = Rgb(nearest.rgb);
+        img.put_pixel(x, y, replacement);
+        // println!("{:?}", nearest.rgb);
     }
+
+    img.save("output.png").expect("Failed to store output image");
 }

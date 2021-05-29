@@ -8,7 +8,7 @@ use image::Rgb;
 #[derive(Debug, Deserialize)]
 pub struct Color {
     pub hex: String,
-    pub rgb: Vec<u8>,
+    pub rgb: [u8; 3],
     pub hsl: Vec<u32>
 }
 
