@@ -1,7 +1,6 @@
 extern crate image;
 use std::collections::HashMap;
-use image::Rgb;
-
+use image::{RgbImage, Rgb};
 mod palette;
 use palette::Color;
 
@@ -35,20 +34,21 @@ fn main() {
 }
 
 fn convert(palette: &HashMap<String, Color>, input_file: &str, output_file: &str) {
-    let mut img = image::open(input_file)
+    let img = image::open(input_file)
         .expect("Failed to read input image")
         .to_rgb8();
+    let mut buffer = RgbImage::new(img.width(), img.height());
 
-    for (x, y, px) in img.clone().enumerate_pixels() {
+    for (x, y, px) in img.enumerate_pixels() {
         let mut nearest = palette.get("black").unwrap();
         for (_, color) in palette.iter() {
             if color.distance(px) < nearest.distance(px) {
                 nearest = color;
             }
         }
-        let replacement = Rgb(nearest.rgb);
-        img.put_pixel(x, y, replacement);
+        let new = Rgb(nearest.rgb);
+        buffer.put_pixel(x, y, new);
     }
 
-    img.save(output_file).expect("Failed to store output image");
+    buffer.save(output_file).expect("Failed to store output image");
 }
