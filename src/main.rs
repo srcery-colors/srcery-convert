@@ -41,9 +41,11 @@ fn convert(palette: &HashMap<String, Color>, input_file: &str, output_file: &str
 
     for (x, y, px) in img.enumerate_pixels() {
         let mut nearest = palette.get("black").unwrap();
+        let mut distance = nearest.distance(px);
         for (_, color) in palette.iter() {
-            if color.distance(px) < nearest.distance(px) {
+            if color.distance(px) < distance {
                 nearest = color;
+                distance = nearest.distance(px);
             }
         }
         let new = Rgb(nearest.rgb);
