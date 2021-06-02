@@ -10,13 +10,13 @@ Requires rust, cargo
 
 ## Usage
 ```sh
-cargo build
+cargo build --release
 ```
 Then run:
 ```sh
 # binary
-target/debug/srcery-convert -- input.png output.png
+target/release/srcery-convert -- input.png output.png
 
 # cargo
-cargo run -- input.png output.png
+cargo run --release -- input.png output.png
 ```
