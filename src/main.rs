@@ -1,6 +1,6 @@
 extern crate image;
+use image::{Rgb, RgbImage};
 use std::collections::HashMap;
-use image::{RgbImage, Rgb};
 mod palette;
 use palette::Color;
 
@@ -18,14 +18,18 @@ fn main() {
         .version(crate_version!())
         .author(crate_authors!())
         .about(crate_description!())
-        .arg(Arg::new("INPUT")
-            .about("Sets the input file to use")
-            .required(true)
-            .index(1))
-        .arg(Arg::new("OUTPUT")
-            .about("Sets the output file")
-            .required(true)
-            .index(2))
+        .arg(
+            Arg::new("INPUT")
+                .about("Sets the input file to use")
+                .required(true)
+                .index(1),
+        )
+        .arg(
+            Arg::new("OUTPUT")
+                .about("Sets the output file")
+                .required(true)
+                .index(2),
+        )
         .get_matches();
 
     let input_file = matches.value_of("INPUT").unwrap();
@@ -52,5 +56,7 @@ fn convert(palette: &HashMap<String, Color>, input_file: &str, output_file: &str
         buffer.put_pixel(x, y, new);
     }
 
-    buffer.save(output_file).expect("Failed to store output image");
+    buffer
+        .save(output_file)
+        .expect("Failed to store output image");
 }
