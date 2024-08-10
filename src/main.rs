@@ -4,37 +4,26 @@ use std::collections::HashMap;
 mod palette;
 use palette::Color;
 
-#[macro_use]
-extern crate clap;
-use clap::{App, Arg};
+use clap::Parser;
+
+/// Simple program to greet a person
+#[derive(Parser, Debug)]
+#[command(version, about, long_about = None)]
+struct Args {
+    #[arg(required = true)]
+    input: String,
+
+    #[arg(required = true)]
+    output: String
+}
 
 fn main() {
     let palette = match palette::read_palette() {
         Ok(palette) => palette,
         Err(e) => panic!("Failed to read palette file\n {}", e),
     };
-
-    let matches = App::new("srcery-convert")
-        .version(crate_version!())
-        .author(crate_authors!())
-        .about(crate_description!())
-        .arg(
-            Arg::new("INPUT")
-                .about("Sets the input file to use")
-                .required(true)
-                .index(1),
-        )
-        .arg(
-            Arg::new("OUTPUT")
-                .about("Sets the output file")
-                .required(true)
-                .index(2),
-        )
-        .get_matches();
-
-    let input_file = matches.value_of("INPUT").unwrap();
-    let output_file = matches.value_of("OUTPUT").unwrap();
-    convert(&palette, input_file, output_file);
+    let args = Args::parse();
+    convert(&palette, &args.input, &args.output);
 }
 
 fn convert(palette: &HashMap<String, Color>, input_file: &str, output_file: &str) {

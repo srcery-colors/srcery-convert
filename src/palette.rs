@@ -1,7 +1,6 @@
 use image::Rgb;
 use serde::Deserialize;
 use std::collections::HashMap;
-use std::io::Error;
 
 #[derive(Debug, Deserialize)]
 pub struct Color {
@@ -18,8 +17,7 @@ impl Color {
             .sqrt()
     }
 }
-
-pub fn read_palette() -> Result<HashMap<String, Color>, Error> {
+pub fn read_palette() -> Result<HashMap<String, Color>, toml::de::Error> {
     let file = include_str!("../palette.toml");
     let palette: HashMap<String, Color> = toml::from_str(file)?;
     Ok(palette)
