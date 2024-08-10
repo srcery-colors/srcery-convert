@@ -75,9 +75,9 @@ rgb = [255, 92, 143]
 hsl = [341, 100, 68]
 
 [bright_cyan]
-hex = "#53FDE9"
-rgb = [83, 253, 233]
-hsl = [173, 98, 66]
+hex = "#2BE4D0"
+rgb = [43, 228, 208]
+hsl = [174, 77, 66]
 
 [bright_white]
 hex = "#FCE8C3"
