@@ -1,0 +1,12 @@
+{
+  "$schema": "https://docs.renovatebot.com/renovate-schema.json",
+  "extends": ["github>srcery-colors/.github:renovate-config"],
+  "enabledManagers": ["cargo"],
+  "packageRules": [
+    {
+      "description": "No CI here, so never automerge",
+      "matchPackageNames": ["*"],
+      "automerge": false
+    }
+  ]
+}
