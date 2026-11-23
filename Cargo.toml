@@ -12,6 +12,6 @@ edition = "2018"
 clap = { version = "4.5.15", features = ["derive"] }
 image = "0.25.2"
 imageproc = "0.25.0"
-itertools = "0.13.0"
+itertools = "0.15.0"
 serde = { version = "1.0.205", features = ["derive"] }
 toml = "0.8.19"
